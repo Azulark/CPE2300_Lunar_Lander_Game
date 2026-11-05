@@ -1,2 +1,2 @@
 # CPE2300_Lunar_Lander_Game
-tfw my rocket crashes after burning through billions of dollars worth of fuel to tilt and thrust the ship at the right angle
+A 2D game where you land a rocket to a launch pad (have to consider thrust power, angle position, and gravity to safely land or else it will crash and burn)
