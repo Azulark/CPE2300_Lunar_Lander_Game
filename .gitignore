@@ -1,0 +1,4 @@
+# Compiled Windows distribution
+/dist/
+/LunarLander_Windows.zip
+/lunarlander.exe
