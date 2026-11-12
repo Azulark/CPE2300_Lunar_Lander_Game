@@ -1,2 +1,2 @@
 # CPE2300_Lunar_Lander_Game
-A 2D game where you land a rocket to a launch pad (have to consider thrust power, angle position, and gravity to safely land or else it will crash and burn)
+that feeling when you spent billions of dollars on fuel and rocket assembly only for it to explode from a hard crash on the Moon
