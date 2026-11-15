@@ -1,9 +1,10 @@
 //CPE2300 - Project
 //Project Name: Lunar Lander
 //Team Name: Argonauts
-//Team Members: Thomas Nguyen, William Reddekopp, Aiden Spadey
+//Team Members: Thomas Nguyen, William Reddekopp, Aiden Spady
 
 #include "raylib.h"
+#include "rotation.h"
 
 // screen size
 #define SCREEN_WIDTH 1000       
@@ -11,6 +12,8 @@
 
 float rocket_x = 300;
 float rocket_y = 200;
+float rocket_angle = 0.0f;
+float rotation_speed = 90.0f;
 
 // background
 void DrawBackground(void) {
@@ -38,19 +41,56 @@ void DrawTerrain(void) {
 // rocket
 void DrawRocket(void)
 {
+    Vector2 center = {rocket_x, rocket_y};
+
+    Vector2 left_leg_start = RotatePoint(
+        (Vector2){-15, 15}, center, rocket_angle
+    );
+
+    Vector2 left_leg_end = RotatePoint(
+        (Vector2){-30, 35}, center, rocket_angle
+    );
+
+    Vector2 right_leg_start = RotatePoint(
+    (Vector2){15, 15}, center, rocket_angle
+    );
+
+    Vector2 right_leg_end = RotatePoint(
+        (Vector2){30, 35}, center, rocket_angle
+    );
+
+    Vector2 left_foot_start = RotatePoint(
+        (Vector2){-35, 35}, center, rocket_angle
+    );
+    Vector2 left_foot_end = RotatePoint(
+        (Vector2){-25, 35}, center, rocket_angle
+    );
+
+    Vector2 right_foot_start = RotatePoint(
+        (Vector2){25, 35}, center, rocket_angle
+    );
+    Vector2 right_foot_end = RotatePoint(
+        (Vector2){35, 35}, center, rocket_angle
+    );
+
     // Main rocket body
-    DrawRectangle(rocket_x - 15, rocket_y - 30, 30, 50, WHITE);
+    DrawRectanglePro(
+    (Rectangle){rocket_x, rocket_y, 30, 50},
+    (Vector2){15, 30},
+    rocket_angle,
+    WHITE
+    );
 
     // Left landing leg
-    DrawLine(rocket_x - 15, rocket_y + 15, rocket_x - 30, rocket_y + 35, WHITE);
+    DrawLineV(left_leg_start, left_leg_end, WHITE);
 
     // Right landing leg
-    DrawLine(rocket_x + 15, rocket_y + 15, rocket_x + 30, rocket_y + 35, WHITE);
+    DrawLineV(right_leg_start, right_leg_end, WHITE);
 
     // Landing feet
-    DrawLine(rocket_x - 35, rocket_y + 35, rocket_x - 25, rocket_y + 35, WHITE);
+    DrawLineV(left_foot_start, left_foot_end, WHITE);
 
-    DrawLine(rocket_x + 25, rocket_y + 35, rocket_x + 35, rocket_y + 35, WHITE);
+    DrawLineV(right_foot_start, right_foot_end, WHITE);
 }
 
 // landing pad
@@ -70,11 +110,13 @@ int main(void) {
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
+        rocket_angle = UpdateRotation(rocket_angle, rotation_speed, GetFrameTime());
         BeginDrawing();
         DrawBackground();
         DrawTerrain();
         DrawRocket();
         DrawLandingPad();
+        DrawText(TextFormat("Angle: %.1f", rocket_angle), 20, 20, 20, YELLOW);
         EndDrawing();
     }
 
