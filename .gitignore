@@ -1,10 +1,4 @@
-# Windows build outputs
-*.exe
-*.dll
-*.o
-*.obj
-*.pdb
-
-# Distribution files
+# Compiled Windows distribution
 /dist/
 /LunarLander_Windows.zip
+/lunarlander.exe
